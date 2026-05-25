@@ -87,3 +87,17 @@ This prototype does not include production authentication or server-side storage
 ## Repository
 
 GitHub: https://github.com/iam-askR/TICHA
+
+## Public Review Link
+
+GitHub Pages review link:
+
+```text
+https://reubenask.github.io/TICHA/
+```
+
+Direct app link:
+
+```text
+https://reubenask.github.io/TICHA/ticha_app.html
+```
