@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>Ticha</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -4388,6 +4388,36 @@ body > .screen{
   #sk .know-input-bar{
     align-items:center!important;
   }
+}
+
+/* iOS focus-zoom lock: inputs must never resize the whole app on tap/type. */
+input,
+textarea,
+select,
+[contenteditable="true"],
+.si-field,
+.name-field,
+.practice-input,
+.know-field,
+.tr-textarea,
+.jnl-email-input,
+.ts-write-area,
+.me-name-input{
+  font-size:16px!important;
+  -webkit-text-size-adjust:100%!important;
+  text-size-adjust:100%!important;
+  transform:none!important;
+  zoom:1!important;
+  touch-action:manipulation!important;
+}
+.know-field,
+#sk .know-field{
+  height:44px!important;
+  min-height:44px!important;
+  max-height:44px!important;
+  line-height:20px!important;
+  overflow-y:auto!important;
+  resize:none!important;
 }
 
 </style>
