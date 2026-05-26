@@ -6,30 +6,32 @@
 <title>Ticha</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
 html{height:100%;overflow:hidden;background:var(--bg);}
 :root{
+  --font-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --font-serif:'Playfair Display',Georgia,serif;
   --tq:#00BFA6;--tqd:#009D8C;--tqg:rgba(0,191,166,.18);
   --bg:#F6F7F8;--card:#fff;--text:#171A1F;--muted:#6F7782;--sep:#E3E7EA;
   --ink:#111827;--soft:#EEF2F4;--accent:#4F46E5;--radius:14px;
   --shadow:0 8px 24px rgba(17,24,39,.06);
 }
 body{
-  font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-family:var(--font-ui);
   background:var(--bg);min-height:100vh;min-height:100dvh;
   position:fixed;inset:0;width:100%;
   display:flex;align-items:flex-start;justify-content:center;overflow:hidden;
 }
 
-/* Display font — Bricolage Grotesque for all prominent headings */
+/* Display font — San Francisco for early prototype headings; premium serif overrides below */
 .graph-greeting,.knowledge-hub-title,.radio-title,.pk-title,.si-title,
 .name-q,.res-total-score,.tsc-title,.dg-title,.dg-streak-num,
 .w-headline,.w-brand,.ask-title,.action-title,.jnl-stat-num,
 .resp-title,.tr-title,.know-bar-title,.read-load-title,.test-bar .resp-title,
 .home-hub .ask-title,.knowledge-hub-eyebrow,.radio-eyebrow{
-  font-family:'Bricolage Grotesque',system-ui,sans-serif;
+  font-family:var(--font-ui);
   font-optical-sizing:auto;
 }
 .phone{
@@ -1415,14 +1417,16 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{
   --gold:#A98255;
   --radius:18px;
   --shadow:0 18px 44px rgba(38,31,22,.08),0 2px 8px rgba(38,31,22,.04);
+  --font-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+  --font-serif:'Playfair Display',Georgia,serif;
 }
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#F8F5EF;color:var(--text);}
+body{font-family:var(--font-ui);background:#F8F5EF;color:var(--text);}
 .phone{background:var(--bg);border-radius:34px;box-shadow:0 26px 80px rgba(33,29,24,.13),0 0 0 1px rgba(60,45,25,.08);}
 @media(max-width:500px){body,.phone{background:var(--bg);}.phone{border-radius:0;}}
 .screen{background:linear-gradient(180deg,#FFFDF9 0%,#FBF8F1 100%);}
-.graph-greeting,.knowledge-hub-title,.radio-title,.pk-title,.si-title,.name-q,.res-total-score,.tsc-title,.dg-title,.dg-streak-num,.w-headline,.w-brand,.ask-title,.action-title,.jnl-stat-num,.resp-title,.tr-title,.know-bar-title,.read-load-title,.test-bar .resp-title,.home-hub .ask-title{font-family:'Playfair Display',Georgia,serif;font-optical-sizing:auto;letter-spacing:0;}
-.knowledge-hub-eyebrow,.radio-eyebrow,.h-lbl,.tr-section-lbl,.jnl-stat-lbl,.dg-section-lbl,.comm-section-title,.me-section-lbl,.read-flags-title,.skill-chip-lbl,.tir-lbl{font-family:'Inter',system-ui,sans-serif;color:var(--gold);letter-spacing:.14em;font-weight:700;}
-button,input,textarea{font-family:'Inter',system-ui,sans-serif;}
+.graph-greeting,.knowledge-hub-title,.radio-title,.pk-title,.si-title,.name-q,.res-total-score,.tsc-title,.dg-title,.dg-streak-num,.w-headline,.w-brand,.ask-title,.action-title,.jnl-stat-num,.resp-title,.tr-title,.know-bar-title,.read-load-title,.test-bar .resp-title,.home-hub .ask-title{font-family:var(--font-serif);font-optical-sizing:auto;letter-spacing:0;}
+.knowledge-hub-eyebrow,.radio-eyebrow,.h-lbl,.tr-section-lbl,.jnl-stat-lbl,.dg-section-lbl,.comm-section-title,.me-section-lbl,.read-flags-title,.skill-chip-lbl,.tir-lbl{font-family:var(--font-ui);color:var(--gold);letter-spacing:.14em;font-weight:700;}
+button,input,textarea,select{font-family:var(--font-ui);}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid rgba(23,109,90,.22);}
 .btn-tq,.si-btn,.ts-btn-next,.read-ctrl-main,.jnl-digest-btn,.jnl-email-btn,.ra.p,.radio-btn.primary,.me-share-btn.primary{background:linear-gradient(180deg,#1E7A65 0%,#0F5747 100%)!important;color:#fff!important;border:0!important;border-radius:14px!important;box-shadow:0 12px 26px rgba(23,109,90,.18)!important;font-weight:700;}
 .btn-ghost,.w-lang{color:var(--tq)!important;background:transparent!important;box-shadow:none!important;}
@@ -1431,8 +1435,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 /* Onboarding */
 #slang,#sl,#sw,#sname{background:linear-gradient(180deg,#FFFDF9 0%,#FBF8F1 100%)!important;color:var(--text);justify-content:center;}
 .premium-brand-block{text-align:center;margin:0 30px 28px;}
-.premium-brand-logo,#sw .w-brand{display:block;font-family:'Playfair Display',Georgia,serif;font-size:54px;line-height:1;color:#0F0F0F;font-weight:600;text-align:center;letter-spacing:-.02em;text-transform:none;}
-.premium-brand-sub,#sw .w-brand::after{content:'YOUR PERSONAL ENGLISH LEARNING COMPANION';display:block;font-family:'Inter',system-ui,sans-serif;font-size:10px;line-height:1.45;color:var(--gold);font-weight:700;letter-spacing:.18em;text-align:center;margin-top:18px;text-transform:uppercase;}
+.premium-brand-logo,#sw .w-brand{display:block;font-family:var(--font-serif);font-size:54px;line-height:1;color:#0F0F0F;font-weight:600;text-align:center;letter-spacing:-.02em;text-transform:none;}
+.premium-brand-sub,#sw .w-brand::after{content:'YOUR PERSONAL ENGLISH LEARNING COMPANION';display:block;font-family:var(--font-ui);font-size:10px;line-height:1.45;color:var(--gold);font-weight:700;letter-spacing:.18em;text-align:center;margin-top:18px;text-transform:uppercase;}
 .premium-brand-rule{width:30px;height:1px;background:var(--gold);opacity:.65;margin:18px auto 0;}
 #sw .w-overlay{position:relative;padding:42px 28px 38px;justify-content:flex-start;}
 #sw .w-brand{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
@@ -1480,7 +1484,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 #slang .premium-wheel-item.selected{border-color:var(--tq)!important;background:rgba(255,253,248,.72)!important;box-shadow:0 12px 28px rgba(38,31,22,.06)!important;padding-right:64px!important;}
 #slang .premium-wheel-item.selected::after{content:'✓';position:absolute;right:22px;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--tq);color:#fff;font-size:20px;font-weight:700;}
 #slang .premium-wheel-mark{grid-column:1;grid-row:1 / 3;font-size:34px!important;min-height:34px!important;margin:0!important;text-align:center;}
-#slang .premium-wheel-name{grid-column:2;grid-row:1;text-align:left!important;font-family:'Inter',system-ui,sans-serif!important;font-size:18px!important;font-weight:800!important;line-height:1.2!important;color:#111!important;min-width:0;}
+#slang .premium-wheel-name{grid-column:2;grid-row:1;text-align:left!important;font-family:var(--font-ui)!important;font-size:18px!important;font-weight:800!important;line-height:1.2!important;color:#111!important;min-width:0;}
 #slang .premium-wheel-sub{grid-column:2;grid-row:2;text-align:left!important;font-size:12.5px!important;line-height:1.35!important;color:var(--tq)!important;margin-top:0!important;max-width:none!important;min-width:0;white-space:normal;}
 #slang .whl-indicator{display:none!important;}
 .premium-wheel-name{font-size:18px;font-weight:700;color:#111;text-align:center;letter-spacing:0;line-height:1.2;}
@@ -1870,7 +1874,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
   width:100%!important;
   min-width:0!important;
   text-align:left!important;
-  font-family:'Inter',system-ui,sans-serif!important;
+  font-family:var(--font-ui)!important;
   font-size:20px!important;
   font-weight:800!important;
   line-height:1.15!important;
@@ -4124,7 +4128,7 @@ body > .screen{
   border-radius:10px;
   background:#FFFDF8;
   color:#111;
-  font:700 13px/1 'Inter',system-ui,sans-serif;
+  font:700 13px/1 var(--font-ui);
   padding:0 10px;
   outline:none;
 }
@@ -4139,7 +4143,7 @@ body > .screen{
   border-radius:10px;
   background:var(--tq);
   color:#fff;
-  font:800 12px/1 'Inter',system-ui,sans-serif;
+  font:800 12px/1 var(--font-ui);
   cursor:pointer;
 }
 #sme .me-share-card{

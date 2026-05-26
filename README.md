@@ -20,9 +20,9 @@ The app includes:
 
 ## Current Status
 
-This is a front-end prototype built as a standalone HTML app. Data is stored locally in the browser for now.
+The original standalone HTML prototype is preserved for review. A new React + Vite + TypeScript frontend scaffold now lives in `frontend/` so Ticha can move into API integration, component testing, and production-style deployment without losing the approved prototype.
 
-The app is ready for design review, product iteration, and API planning. Authentication, generated audio, AI content creation, cloud storage, and real learning analytics can be connected later.
+Data is still local/mock for now. Authentication, generated audio, AI content creation, cloud storage, and real learning analytics can be connected through the typed API service layer.
 
 ## Project Structure
 
@@ -30,6 +30,17 @@ The app is ready for design review, product iteration, and API planning. Authent
 TICHA/
 ├── README.md
 ├── CHANGELOG.md
+├── docs/
+│   └── API_ROLLOUT.md
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── data/
+│   │   ├── domain/
+│   │   ├── services/
+│   │   └── store/
+│   ├── package.json
+│   └── vite.config.ts
 ├── ticha_app.html
 └── assets/
     ├── husky-card-reference.png
@@ -51,7 +62,7 @@ Ticha uses a premium education UI style:
 
 ## Run Locally
 
-Open `ticha_app.html` directly in a browser, or run a local server:
+Open the legacy prototype directly in a browser, or run a local server:
 
 ```bash
 python3 -m http.server 4173
@@ -63,6 +74,22 @@ Then open:
 http://127.0.0.1:4173/ticha_app.html
 ```
 
+Run the new React app:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Useful checks:
+
+```bash
+npm run build
+npm test
+npm run e2e
+```
+
 ## Prototype Notes
 
 - Local sign up and sign in are prototype-only and stored on the device.
@@ -70,6 +97,8 @@ http://127.0.0.1:4173/ticha_app.html
 - Starter vocabulary cards are included as sample learning content.
 - Ticha Radio content is currently represented as prototype categories and sample copy.
 - The word map feature is designed to later accept dynamic vocabulary data from an API.
+- The React app has a typed API client in `frontend/src/services/apiClient.ts` that can be swapped from local mock data to real backend calls.
+- The API rollout order is documented in `docs/API_ROLLOUT.md`.
 
 ## Roadmap
 
@@ -78,7 +107,8 @@ http://127.0.0.1:4173/ticha_app.html
 - Add AI-generated word maps for each saved word
 - Add generated audiobooks, podcasts, kids music, daily briefs, and bulletins
 - Add real progress analytics and parent/family dashboards
-- Package the app into a modern framework when ready for production
+- Replace the mock API client with real API endpoints
+- Move GitHub Pages or Vercel deployment to the React build when ready
 
 ## Privacy And Security
 
@@ -86,7 +116,7 @@ This prototype does not include production authentication or server-side storage
 
 ## Repository
 
-GitHub: https://github.com/iam-askR/TICHA
+GitHub: https://github.com/reubenask/TICHA
 
 ## Public Review Link
 
