@@ -29,6 +29,8 @@ export interface TichaApi {
   getProgress(): Promise<ProgressSummary>;
 }
 
+const apiBaseUrl = import.meta.env.VITE_TICHA_API_URL?.replace(/\/$/, "");
+const tokenKey = "ticha.react.apiToken";
 const profileKey = "ticha.react.profile";
 const deckKey = "ticha.react.deck";
 
@@ -128,4 +130,87 @@ export const mockTichaApi: TichaApi = {
   }
 };
 
-export const tichaApi = mockTichaApi;
+async function apiRequest<T>(path: string, init: RequestInit = {}, authed = true): Promise<T> {
+  if (!apiBaseUrl) throw new Error("VITE_TICHA_API_URL is not configured.");
+  const headers = new Headers(init.headers);
+  headers.set("content-type", "application/json");
+  if (authed) {
+    const token = localStorage.getItem(tokenKey);
+    if (token) headers.set("authorization", `Bearer ${token}`);
+  }
+
+  const response = await fetch(`${apiBaseUrl}${path}`, { ...init, headers });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(body?.error?.message || `API request failed: ${response.status}`);
+  }
+  return body as T;
+}
+
+export const backendTichaApi: TichaApi = {
+  async signUp(input) {
+    const body = await apiRequest<{ user: UserProfile; token: string }>("/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify(input)
+    }, false);
+    localStorage.setItem(tokenKey, body.token);
+    return body.user;
+  },
+
+  async signIn(input) {
+    const body = await apiRequest<{ user: UserProfile; token: string }>("/api/auth/signin", {
+      method: "POST",
+      body: JSON.stringify(input)
+    }, false);
+    localStorage.setItem(tokenKey, body.token);
+    return body.user;
+  },
+
+  async signOut() {
+    localStorage.removeItem(tokenKey);
+  },
+
+  async getProfile() {
+    if (!localStorage.getItem(tokenKey)) return null;
+    const body = await apiRequest<{ user: UserProfile }>("/api/me");
+    return body.user;
+  },
+
+  async updateProfile(input) {
+    const body = await apiRequest<{ user: UserProfile }>("/api/me", {
+      method: "PATCH",
+      body: JSON.stringify(input)
+    });
+    return body.user;
+  },
+
+  async getVocabularyDeck() {
+    const body = await apiRequest<{ vocabulary: VocabularyWord[] }>("/api/vocabulary");
+    return body.vocabulary;
+  },
+
+  async updateVocabularyReview(wordId, status) {
+    const body = await apiRequest<{ word: VocabularyWord }>(`/api/vocabulary/${wordId}/review`, {
+      method: "PATCH",
+      body: JSON.stringify({ status })
+    });
+    return body.word;
+  },
+
+  async generateWordMap(wordId) {
+    const body = await apiRequest<{ word: VocabularyWord }>(`/api/vocabulary/${wordId}/word-map`);
+    return body.word;
+  },
+
+  async getRadioCategories() {
+    const body = await apiRequest<{ categories: RadioCategory[] }>("/api/radio/categories", {}, false);
+    return body.categories;
+  },
+
+  async getProgress() {
+    const body = await apiRequest<{ progress: ProgressSummary }>("/api/progress");
+    return body.progress;
+  }
+};
+
+export const tichaApi = apiBaseUrl ? backendTichaApi : mockTichaApi;

@@ -9,3 +9,8 @@ frontend/playwright-report/
 frontend/test-results/
 frontend/.env
 frontend/.env.local
+backend/node_modules/
+backend/dist/
+backend/.data/
+backend/.env
+backend/.env.local

@@ -32,6 +32,14 @@ TICHA/
 ├── CHANGELOG.md
 ├── docs/
 │   └── API_ROLLOUT.md
+├── backend/
+│   ├── src/
+│   │   ├── providers/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── store/
+│   ├── package.json
+│   └── .env.example
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
@@ -90,6 +98,27 @@ npm test
 npm run e2e
 ```
 
+Run the backend API:
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Backend health check:
+
+```text
+http://localhost:8787/api/health
+```
+
+Connect the React app to the backend by setting:
+
+```bash
+VITE_TICHA_API_URL=http://localhost:8787
+```
+
 ## Prototype Notes
 
 - Local sign up and sign in are prototype-only and stored on the device.
@@ -98,6 +127,7 @@ npm run e2e
 - Ticha Radio content is currently represented as prototype categories and sample copy.
 - The word map feature is designed to later accept dynamic vocabulary data from an API.
 - The React app has a typed API client in `frontend/src/services/apiClient.ts` that can be swapped from local mock data to real backend calls.
+- The backend has mock providers by default and an OpenAI-compatible provider mode when API values are supplied.
 - The API rollout order is documented in `docs/API_ROLLOUT.md`.
 
 ## Roadmap
