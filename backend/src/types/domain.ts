@@ -17,6 +17,13 @@ export interface UserRecord extends UserProfile {
   passwordHash: string;
 }
 
+export interface PasswordResetToken {
+  token: string;
+  userId: string;
+  expiresAt: string;
+  createdAt: string;
+}
+
 export interface VocabularyWord {
   id: string;
   userId?: string;

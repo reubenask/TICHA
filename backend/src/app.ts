@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import { corsOrigins } from "./config/env.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { generalRateLimit } from "./middleware/rateLimit.js";
 import { authRoutes } from "./routes/authRoutes.js";
 import { captureRoutes } from "./routes/captureRoutes.js";
 import { knowledgeRoutes } from "./routes/knowledgeRoutes.js";
@@ -14,6 +15,7 @@ export function createApp() {
   const app = express();
 
   app.use(helmet());
+  app.set("trust proxy", 1);
   app.use(cors({
     origin(origin, callback) {
       if (!origin || corsOrigins.includes(origin) || corsOrigins.includes("*")) {
@@ -24,6 +26,7 @@ export function createApp() {
     }
   }));
   app.use(express.json({ limit: "12mb" }));
+  app.use(generalRateLimit);
 
   app.get("/api/health", (_req, res) => {
     res.json({ ok: true, service: "ticha-backend" });

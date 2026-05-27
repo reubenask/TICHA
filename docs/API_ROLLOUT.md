@@ -6,10 +6,10 @@ The backend implementation now lives in `backend/`. It runs in mock mode by defa
 
 ## 1. Auth And Profiles
 
-- Sign up, sign in, sign out, password reset.
+- Sign up, sign in, sign out, password change, and password reset.
 - Store learner name, preferred language, level, and profile photo.
 - Replace the local prototype profile in `frontend/src/services/apiClient.ts`.
-- The backend already exposes signup, signin, profile read, and profile update routes.
+- The backend already exposes signup, signin, profile read/update, password change, and password reset routes.
 
 ## 2. Vocabulary
 

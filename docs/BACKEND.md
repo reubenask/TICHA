@@ -40,6 +40,9 @@ The frontend never receives secret API keys. It calls the backend, and the backe
 ```text
 POST /api/auth/signup
 POST /api/auth/signin
+POST /api/auth/password/change
+POST /api/auth/password/reset-request
+POST /api/auth/password/reset-confirm
 GET  /api/me
 PATCH /api/me
 
@@ -67,7 +70,7 @@ This keeps setup simple while preserving a clean boundary for replacing storage 
 - Set a strong `JWT_SECRET`.
 - Use HTTPS only.
 - Replace local JSON storage with a managed database.
-- Add rate limits and abuse protection.
-- Add email verification and password reset.
+- Connect password reset emails to an email provider.
+- Add email verification.
 - Store uploaded media in object storage.
 - Add provider-specific cost controls and safety filters.

@@ -12,6 +12,8 @@ async function freshApp() {
   process.env.JWT_SECRET = "test-secret";
   process.env.AI_PROVIDER = "mock";
   process.env.TICHA_DATA_FILE = join(dataDir, "db.json");
+  process.env.RATE_LIMIT_MAX = "1000";
+  process.env.AUTH_RATE_LIMIT_MAX = "1000";
   const { createApp } = await import("../src/app.js");
   return createApp();
 }
@@ -74,6 +76,48 @@ describe("Ticha backend API", () => {
     const progress = await request(app).get("/api/progress").set("authorization", `Bearer ${token}`).expect(200);
     expect(progress.body.progress.knownWords).toBe(1);
     expect(progress.body.progress.sessions).toBe(1);
+  });
+
+  it("changes and resets account passwords", async () => {
+    const app = await freshApp();
+    const signup = await request(app)
+      .post("/api/auth/signup")
+      .send({
+        name: "Mina",
+        email: "mina@example.com",
+        password: "Prototype123!",
+        nativeLanguage: "English",
+        level: "grade-1-3"
+      })
+      .expect(201);
+
+    await request(app)
+      .post("/api/auth/password/change")
+      .set("authorization", `Bearer ${signup.body.token}`)
+      .send({ currentPassword: "Prototype123!", newPassword: "NewPrototype456!" })
+      .expect(200);
+
+    await request(app)
+      .post("/api/auth/signin")
+      .send({ email: "mina@example.com", password: "NewPrototype456!" })
+      .expect(200);
+
+    const reset = await request(app)
+      .post("/api/auth/password/reset-request")
+      .send({ email: "mina@example.com" })
+      .expect(200);
+
+    expect(reset.body.resetToken).toEqual(expect.any(String));
+
+    await request(app)
+      .post("/api/auth/password/reset-confirm")
+      .send({ token: reset.body.resetToken, newPassword: "ResetPrototype789!" })
+      .expect(200);
+
+    await request(app)
+      .post("/api/auth/signin")
+      .send({ email: "mina@example.com", password: "ResetPrototype789!" })
+      .expect(200);
   });
 
   it("generates mock word maps, capture analysis, and radio content", async () => {

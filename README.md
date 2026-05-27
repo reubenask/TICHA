@@ -22,7 +22,7 @@ The app includes:
 
 The original standalone HTML prototype is preserved for review. A new React + Vite + TypeScript frontend scaffold now lives in `frontend/` so Ticha can move into API integration, component testing, and production-style deployment without losing the approved prototype.
 
-Data is still local/mock for now. Authentication, generated audio, AI content creation, cloud storage, and real learning analytics can be connected through the typed API service layer.
+The backend now provides API-ready authentication, learner profiles, starter vocabulary, word maps, capture analysis, knowledge answers, radio generation, and progress summaries. Storage is still local JSON by default, so the next production step is to connect a managed database and provider credentials.
 
 ## Project Structure
 
@@ -121,7 +121,8 @@ VITE_TICHA_API_URL=http://localhost:8787
 
 ## Prototype Notes
 
-- Local sign up and sign in are prototype-only and stored on the device.
+- The React app can run against local mock data or the backend API by setting `VITE_TICHA_API_URL`.
+- Backend sign up, sign in, password change, and password reset contracts are implemented.
 - Vocabulary progress is stored locally.
 - Starter vocabulary cards are included as sample learning content.
 - Ticha Radio content is currently represented as prototype categories and sample copy.
@@ -137,12 +138,12 @@ VITE_TICHA_API_URL=http://localhost:8787
 - Add AI-generated word maps for each saved word
 - Add generated audiobooks, podcasts, kids music, daily briefs, and bulletins
 - Add real progress analytics and parent/family dashboards
-- Replace the mock API client with real API endpoints
+- Connect the deployed React app to the backend API environment
 - Move GitHub Pages or Vercel deployment to the React build when ready
 
 ## Privacy And Security
 
-This prototype does not include production authentication or server-side storage. Do not use real passwords or sensitive learner information until proper authentication, encryption, and backend storage are connected.
+The backend includes password hashing, JWT auth, password reset contracts, CORS controls, and basic rate limiting. Do not use real learner data in production until HTTPS, a managed database, email delivery, object storage, monitoring, and secret management are configured.
 
 ## Repository
 

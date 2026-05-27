@@ -14,10 +14,17 @@ const envSchema = z.object({
   OPENAI_MODEL: z.string().optional(),
   STORAGE_PROVIDER: z.string().default("local"),
   TTS_PROVIDER: z.string().default("mock"),
-  VISION_PROVIDER: z.string().default("mock")
+  VISION_PROVIDER: z.string().default("mock"),
+  RATE_LIMIT_WINDOW_MS: z.coerce.number().int().positive().default(60_000),
+  RATE_LIMIT_MAX: z.coerce.number().int().positive().default(180),
+  AUTH_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(30)
 });
 
 export const env = envSchema.parse(process.env);
+
+if (env.NODE_ENV === "production" && env.JWT_SECRET === "dev-only-change-this-secret") {
+  throw new Error("JWT_SECRET must be set to a strong secret in production.");
+}
 
 export const corsOrigins = env.CORS_ORIGIN.split(",")
   .map((origin) => origin.trim())

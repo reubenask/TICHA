@@ -1,15 +1,17 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
-import type { UserRecord, VocabularyWord } from "../types/domain.js";
+import type { PasswordResetToken, UserRecord, VocabularyWord } from "../types/domain.js";
 
 export interface TichaDatabase {
   users: UserRecord[];
   vocabulary: VocabularyWord[];
+  passwordResetTokens: PasswordResetToken[];
 }
 
 const emptyDb: TichaDatabase = {
   users: [],
-  vocabulary: []
+  vocabulary: [],
+  passwordResetTokens: []
 };
 
 export class FileStore {
