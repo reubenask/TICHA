@@ -23,6 +23,7 @@ The app includes:
 The original standalone HTML prototype is preserved for review. A new React + Vite + TypeScript frontend scaffold now lives in `frontend/` so Ticha can move into API integration, component testing, and production-style deployment without losing the approved prototype.
 
 The backend now provides API-ready authentication, learner profiles, starter vocabulary, word maps, capture analysis, knowledge answers, radio generation, and progress summaries. Storage is still local JSON by default, so the next production step is to connect a managed database and provider credentials.
+Production adapters are included for Supabase Postgres, Supabase Storage signed uploads, Resend password reset email, Sentry error capture, and OpenAI provider calls.
 
 ## Project Structure
 
@@ -33,6 +34,7 @@ TICHA/
 ├── docs/
 │   └── API_ROLLOUT.md
 ├── backend/
+│   ├── migrations/
 │   ├── src/
 │   │   ├── providers/
 │   │   ├── routes/

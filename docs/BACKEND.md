@@ -35,6 +35,36 @@ OPENAI_MODEL=your-current-model
 
 The frontend never receives secret API keys. It calls the backend, and the backend calls providers.
 
+## Production Environment Values
+
+Use these in Render or another backend host:
+
+```env
+NODE_ENV=production
+PORT=8787
+CORS_ORIGIN=https://your-ticha-frontend-url
+APP_PUBLIC_URL=https://your-ticha-frontend-url
+JWT_SECRET=use-a-long-random-secret
+
+DATABASE_PROVIDER=postgres
+DATABASE_URL=postgresql://...
+
+AI_PROVIDER=openai
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=...
+
+RESEND_API_KEY=re_...
+EMAIL_FROM=Ticha <hello@your-domain.com>
+SENTRY_DSN=https://...
+
+STORAGE_PROVIDER=supabase
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=...
+SUPABASE_STORAGE_BUCKET=ticha-uploads
+```
+
+For Supabase, run `backend/migrations/001_initial_schema.sql` in the SQL editor or migration pipeline. Create a private storage bucket named `ticha-uploads`.
+
 ## Main Endpoints
 
 ```text
@@ -55,15 +85,16 @@ GET  /api/vocabulary/:wordId/word-map
 POST /api/capture/analyze
 GET  /api/radio/categories
 POST /api/radio/generate
+POST /api/uploads/signed-url
 POST /api/knowledge/ask
 GET  /api/progress
 ```
 
 ## Current Persistence
 
-The first backend uses local JSON persistence through `TICHA_DATA_FILE`.
+The backend uses local JSON persistence through `TICHA_DATA_FILE` by default.
 
-This keeps setup simple while preserving a clean boundary for replacing storage with Postgres, Supabase, or another database later.
+Set `DATABASE_PROVIDER=postgres` and `DATABASE_URL` to use Supabase Postgres.
 
 ## Production Checklist
 

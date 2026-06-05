@@ -76,6 +76,13 @@ describe("Ticha backend API", () => {
     const progress = await request(app).get("/api/progress").set("authorization", `Bearer ${token}`).expect(200);
     expect(progress.body.progress.knownWords).toBe(1);
     expect(progress.body.progress.sessions).toBe(1);
+
+    const upload = await request(app)
+      .post("/api/uploads/signed-url")
+      .set("authorization", `Bearer ${token}`)
+      .send({ fileName: "profile.png", contentType: "image/png", folder: "profile-photos" })
+      .expect(200);
+    expect(upload.body.upload.provider).toBe("local");
   });
 
   it("changes and resets account passwords", async () => {

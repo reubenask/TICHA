@@ -10,6 +10,7 @@ The backend implementation now lives in `backend/`. It runs in mock mode by defa
 - Store learner name, preferred language, level, and profile photo.
 - Replace the local prototype profile in `frontend/src/services/apiClient.ts`.
 - The backend already exposes signup, signin, profile read/update, password change, and password reset routes.
+- Resend email delivery is wired through `RESEND_API_KEY`, `EMAIL_FROM`, and `APP_PUBLIC_URL`.
 
 ## 2. Vocabulary
 
@@ -17,6 +18,7 @@ The backend implementation now lives in `backend/`. It runs in mock mode by defa
 - Save learner words and review status.
 - Generate word maps from a vocabulary word object, not hardcoded content.
 - The backend already seeds starter decks, saves words, updates review status, and generates word maps through the provider layer.
+- Supabase Postgres can be enabled with `DATABASE_PROVIDER=postgres` and `DATABASE_URL`.
 
 ## 3. AI Learning
 
@@ -25,6 +27,7 @@ The backend implementation now lives in `backend/`. It runs in mock mode by defa
 - Reading coach text generation.
 - Translation into the learner's registered language.
 - The backend already exposes `/api/knowledge/ask` and `/api/capture/analyze`.
+- Supabase signed upload URLs are available through `/api/uploads/signed-url` when `STORAGE_PROVIDER=supabase`.
 
 ## 4. Ticha Radio
 

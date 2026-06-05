@@ -7,6 +7,7 @@ import { HttpError } from "../http/httpError.js";
 import { signToken } from "../middleware/auth.js";
 import { store } from "../store/index.js";
 import type { NativeLanguage, UserLevel, UserProfile, UserRecord, VocabularyWord } from "../types/domain.js";
+import { sendPasswordResetEmail } from "./emailService.js";
 
 const passwordSchema = z.string()
   .min(8, "Password must be at least 8 characters.")
@@ -155,6 +156,7 @@ export async function requestPasswordReset(input: z.infer<typeof passwordResetRe
   const createdAt = new Date(now).toISOString();
   const expiresAt = new Date(now + 30 * 60 * 1000).toISOString();
   let resetToken: string | undefined;
+  let emailPayload: { to: string; name: string; token: string } | undefined;
 
   await store.transaction((db) => {
     db.passwordResetTokens = db.passwordResetTokens.filter((item) => Date.parse(item.expiresAt) > now);
@@ -163,12 +165,16 @@ export async function requestPasswordReset(input: z.infer<typeof passwordResetRe
 
     db.passwordResetTokens = db.passwordResetTokens.filter((item) => item.userId !== user.id);
     db.passwordResetTokens.push({ token, userId: user.id, createdAt, expiresAt });
+    emailPayload = { to: user.email, name: user.name, token };
     if (env.NODE_ENV !== "production") resetToken = token;
   });
+
+  const emailResult = emailPayload ? await sendPasswordResetEmail(emailPayload) : { sent: false };
 
   return {
     ok: true,
     message: "If an account exists for this email, password reset instructions will be sent.",
+    emailSent: env.NODE_ENV === "production" ? undefined : emailResult.sent,
     resetToken
   };
 }
